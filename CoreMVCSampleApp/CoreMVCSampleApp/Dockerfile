@@ -5,10 +5,10 @@ EXPOSE 443
 
 FROM microsoft/dotnet:2.1-sdk AS build
 WORKDIR /src
-COPY ["CoreMVCSampleApp/CoreMVCSampleApp.csproj", "CoreMVCSampleApp/"]
-RUN dotnet restore "CoreMVCSampleApp/CoreMVCSampleApp.csproj"
 COPY . .
-WORKDIR "/src/CoreMVCSampleApp"
+RUN dotnet restore
+COPY . .
+WORKDIR /src
 RUN dotnet build "CoreMVCSampleApp.csproj" -c Release -o /app
 
 FROM build AS publish
